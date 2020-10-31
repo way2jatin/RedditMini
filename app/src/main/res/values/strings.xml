@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RedditMini</string>
+    <string name="post">Post</string>
+    <string name="save">Save</string>
+    <string name="title_empty_error">Empty Title</string>
+    <string name="topics">Topics</string>
 </resources>

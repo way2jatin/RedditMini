@@ -12,6 +12,7 @@ import com.sample.redditmini.R
 import com.sample.redditmini.databinding.FragmentCreateTopicBinding
 import com.sample.redditmini.model.Topic
 import com.sample.redditmini.util.BaseFragment
+import com.sample.redditmini.util.hideKeyboard
 import com.sample.redditmini.viewModel.CreateTopicViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -61,6 +62,7 @@ class CreateTopicFragment: BaseFragment<FragmentCreateTopicBinding>() {
                         .show()
                     false
                 } else{
+                    view?.hideKeyboard()
                     allTopics.add(viewModel.saveTopic(position))
                     val action = CreateTopicFragmentDirections.actionCreateFragmentToHomeFragment(allTopics.toTypedArray())
                     findNavController().navigate(action)

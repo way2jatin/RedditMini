@@ -34,6 +34,7 @@ class TopicAdapter(private var listener:TopicAdapterListener) : RecyclerView.Ada
 
     fun setData(topic: List<Topic>){
         this.topics = topic
+        topics = topics.sortedByDescending { it.upVote }
         notifyDataSetChanged()
     }
 

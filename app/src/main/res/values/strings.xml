@@ -4,4 +4,5 @@
     <string name="save">Save</string>
     <string name="title_empty_error">Empty Title</string>
     <string name="topics">Topics</string>
+    <string name="view_topic">Topic</string>
 </resources>

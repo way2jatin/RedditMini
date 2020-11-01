@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("dceb4605-11b9-49df-be9e-5b0eae71215f")
+    @GET("3db3ed73-5a62-4d0e-b97e-188930c4d8c8")
     suspend fun getTopics(): Response<MutableList<Topic>>
 }

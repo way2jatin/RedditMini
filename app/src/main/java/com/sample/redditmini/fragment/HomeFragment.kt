@@ -23,7 +23,6 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(), TopicAdapter.TopicAdapt
     override fun getLayoutParams(): Int  = R.layout.fragment_home
 
     private val viewModel: HomeViewModel by viewModel()
-    private var allTopics = ArrayList<Topic>()
     private lateinit var topicsAdapter:TopicAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,10 +49,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(), TopicAdapter.TopicAdapt
         arguments?.let {
             val bundle = HomeFragmentArgs.fromBundle(it)
             if (bundle.toBundle().containsKey("topics")){
-                allTopics.clear()
+                viewModel.allTopics.clear()
                 bundle.topics?.let {topics ->
-                    allTopics.clear()
-                    allTopics.addAll(topics.toList())
+                    viewModel.allTopics.clear()
+                    viewModel.allTopics.addAll(topics.toList())
                     topicsAdapter.setData(topics.toList())
                 }
             }
@@ -66,8 +65,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(), TopicAdapter.TopicAdapt
 
         viewModel.topicSuccessLiveData.observe(viewLifecycleOwner, Observer {topics ->
             viewModel.emptyStateLiveData.value = topics.isNullOrEmpty()
-            allTopics.clear()
-            allTopics.addAll(topics)
+            viewModel.allTopics.clear()
+            viewModel.allTopics.addAll(topics)
             topicsAdapter.setData(topics)
 
         })
@@ -86,8 +85,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(), TopicAdapter.TopicAdapt
         when (item.itemId) {
             R.id.action_post ->{
                 val bundle = Bundle().apply {
-                    putInt("size",allTopics.size + 1)
-                    putParcelableArrayList("topics", allTopics)
+                    putInt("size",viewModel.allTopics.size + 1)
+                    putParcelableArrayList("topics", viewModel.allTopics)
                 }
                 findNavController().navigate(R.id.action_homeFragment_to_createFragment,bundle)
             }
@@ -108,23 +107,23 @@ class HomeFragment: BaseFragment<FragmentHomeBinding>(), TopicAdapter.TopicAdapt
     }
 
     override fun onUpVote(item: Topic) {
-        for (topic in allTopics){
+        for (topic in viewModel.allTopics){
             if (item.id == topic.id){
                 topic.upVote +=1
                 break
             }
         }
-        topicsAdapter.setData(allTopics)
+        topicsAdapter.setData(viewModel.allTopics)
     }
 
     override fun onDownVote(item: Topic) {
-        for (topic in allTopics){
+        for (topic in viewModel.allTopics){
             if (item.id == topic.id){
                 topic.downVote -=1
                 break
             }
         }
-        topicsAdapter.setData(allTopics)
+        topicsAdapter.setData(viewModel.allTopics)
     }
 
 

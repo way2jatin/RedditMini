@@ -2,6 +2,7 @@ package com.sample.redditmini.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.sample.redditmini.R
 import com.sample.redditmini.databinding.FragmentViewTopicBinding
 import com.sample.redditmini.model.Topic
@@ -14,6 +15,10 @@ class ViewTopicFragment: BaseFragment<FragmentViewTopicBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as? AppCompatActivity)?.supportActionBar?.title =
+            getString(R.string.view_topic)
 
         arguments?.let {
             topic = it.getParcelable<Topic>("topic") as Topic

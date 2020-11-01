@@ -11,6 +11,4 @@ class CreateTopicViewModel: ViewModel() {
     fun saveTopic(position: Int): Topic {
         return Topic(position,title,content,15,10)
     }
-
-
 }
